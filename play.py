@@ -218,6 +218,8 @@ while True:
 		go.update(dt)
 		go.draw(windowsSurfaceObj)
 		if(go.y_float >= HEIGHT):
+			if(active_go == go):
+				active_go = None
 			delete_word(gameobjects, go.text_in)
 			score_me.add_points(-100)
 			send_score = {"type": "score", "points": -100}
