@@ -203,10 +203,15 @@ while True:
 	if GO:
 		time_in += dt
 		if(time_in > 1.0):
+			time_in -= 1.0
 			if(shooted_objects < 5):
-				time_in -= 1.0
 				shooted_objects += 1
 				create_shooted()
+			else:
+				if(score_op.score > 500):
+					create_shooted()
+
+
 
 	if(data_available()):
 		for data in data_in:
