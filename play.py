@@ -203,18 +203,16 @@ while True:
 
 	if GO:
 		time_in += dt
-		if(time_in > 1.0):
-			time_in -= 1.0
-			if(shooted_objects < 5):
+		# starting shoots
+		if(shooted_objects < 5):
+			if(time_in > 1.0):
+				time_in -= 1.0
 				shooted_objects += 1
 				create_shooted()
-			else:
+		else:
+			if(time_in > 5.0):
 				if(score_op.score > 500):
 					create_shooted()
-				if(score_me.score > 1000):
-					speed_float *= 1.01
-					speed = int(speed_float)
-
 
 
 	if(data_available()):
