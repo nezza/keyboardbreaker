@@ -106,6 +106,12 @@ def is_word_available(word):
 			return False
 	return True
 
+def get_word_obj(listx, word):
+	for w in listx:
+		if(w.text_in == word):
+			return w
+	return None
+
 def get_word_index(listx, word):
 	for idx, val in enumerate(listx):
 		if(val.text_in == word):
@@ -213,6 +219,9 @@ while True:
 			elif(data["type"] == "score"):
 				score_op.add_points(data["points"])
 			elif(data["type"] == "destroy"):
+				w = get_word_obj(shootingobjects, data["word"])
+				if(active_so == w):
+					active_so = None
 				delete_word(shootingobjects, data["word"])
 			elif(data["type"] == "go"):
 				GO = True
