@@ -211,6 +211,7 @@ while True:
 				create_shooted()
 		else:
 			if(time_in > 5.0):
+				time_in -= 5.0
 				if(score_op.score > 500):
 					create_shooted()
 
