@@ -211,7 +211,7 @@ while True:
 			else:
 				if(score_op.score > 500):
 					create_shooted()
-				if(score_op.score > 1000):
+				if(score_me.score > 1000):
 					speed_float *= 1.01
 					speed = int(speed_float)
 
