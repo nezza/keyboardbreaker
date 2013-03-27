@@ -19,6 +19,7 @@ PORT = 50008              # Arbitrary non-privileged port
 
 
 speed = HEIGHT/25
+speed_float = float(speed)
 GO = False
 pygame.init()
 random.seed()
@@ -210,6 +211,9 @@ while True:
 			else:
 				if(score_op.score > 500):
 					create_shooted()
+				if(score_op.score > 1000):
+					speed_float *= 1.01
+					speed = int(speed_float)
 
 
 
