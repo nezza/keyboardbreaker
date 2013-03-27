@@ -48,6 +48,9 @@ conn = None
 score_me = Score((0,5))
 score_op = Score((800, 5))
 
+def send_data(data):
+	conn.sendall(data + "\n")
+
 
 if(sys.argv[1] == "listen"):
 	HOST = ''                 # Symbolic name meaning all available interfaces
@@ -58,6 +61,7 @@ if(sys.argv[1] == "listen"):
 	conn.setblocking(0)
 	print 'Connected by', addr
 	msg = json.dumps({"type": "go"})
+	GO = True
 	send_data(msg)
 elif(sys.argv[1] == "connect"):
 	HOST = sys.argv[2]
@@ -151,6 +155,8 @@ def handle_key(key):
 
 		if(active_go.is_over()):
 			delete_word(gameobjects, active_go.text_in)
+			send_destroy = {"type": "destroy", "word": active_go.text_in}
+			send_data(json.dumps(send_destroy))
 			active_go = None
 			destroyed_word()
 			return
@@ -206,6 +212,8 @@ while True:
 				gameobjects.append(ob)
 			elif(data["type"] == "score"):
 				score_op.add_points(data["points"])
+			elif(data["type"] == "destroy"):
+				delete_word(shootingobjects, data["word"])
 			elif(data["type"] == "go"):
 				GO = True
 				create_shooted()
@@ -222,6 +230,8 @@ while True:
 				active_go = None
 			delete_word(gameobjects, go.text_in)
 			score_me.add_points(-100)
+			send_destroy = {"type": "destroy", "word": go.text_in}
+			send_data(json.dumps(send_destroy))
 			send_score = {"type": "score", "points": -100}
 			send_data(json.dumps(send_score))
 
